@@ -1,0 +1,15 @@
+---
+title: "Ass1_Kat_Leigh"
+author: "Kat Leigh"
+date: "2/10/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I am taking this course because it is required for the data science focus. I also think that the skills learned in this class will be tremendously useful on a near daily basis for my career as I am focused on leveraging data economics to solve the synergistic problems facing coastal communities and the seafood industry.
+
+I have very little coding or R experience; really just the data science course from last quarter and that's it, so I really need to build this skillset. I worked for an electronic health records software company, Epic, and thus interacted a lot with an application, but did not do any coding for it. I am in EcoE and launching a venture built on distributed ledger technologies and thus read lots of technical whitepapers and interact a ton with developers, but all the coding is left to my team; I do not develop the code. I got decently familiar with the Environmental Data Initiative repository and its upload process while working for The Nature Conservancy the past few years, but limited coding knowledge is required to use EDI.
+
