@@ -1,0 +1,61 @@
+---
+title: "Football Stats"
+author: "Kat Leigh"
+date: "2/24/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyr)
+library(tidyverse)
+
+```
+
+Let's use the function "kat_football_stats" to calculate catch percentage and catches per minute. First, we need to create some data...
+
+```{r}
+data1 <- rnorm(5, 40, 4)
+data2 <- 70 + rexp(5, .125)
+data3 <- rnorm(5, 40, 10)
+
+```
+
+Now let's plug that data into the function
+
+```{r}
+kat_football_stats = function(throws, catches, minutes, wind_speed = 0.03, wind_direction = -0.05, light = 0.05)
+  {
+  throws = ifelse((throws < 0), return("throws must be greater than zero"), throws)
+  catches = ifelse((catches <0), return("catches must be greter than or equal to zero"), catches)
+  minutes = ifelse((minutes <0), return("minutes must be greater than zero"), minutes)
+  wind_speed = ifelse((wind_speed >1), return("speed must be less than one"), wind_speed)
+  wind_direction = ifelse((abs(wind_direction) >1), return("absolute value of direction must be less than one"), wind_direction)
+  light = ifelse((!(light %in% c(0.05, 0))), return("light must be a value of 0.05 or zero"), light)
+  catch_percentage = ((catches+wind_speed+wind_direction+light)/throws)*100
+  catches_per_minute = (catches+wind_speed+wind_direction+light)/minutes
+  
+  return(c(catch_percentage, catches_per_minute))
+}
+
+results <- kat_football_stats(data2,data1,data3)
+
+plot_results <- tibble(outputc = c(results[1:10]), type = c("CP", "CP", "CP", "CP", "CP", "CM", "CM", "CM", "CM", "CM"), minutes = c(data3, data3))
+```
+
+Let's plot our results
+
+```{r}
+ggplot(plot_results)+
+  geom_point(aes(x=minutes, y= outputc, color = type), show.legend = FALSE)+
+  labs(title = "Catch Percent and Catches per Minute versus Minutes of Practice for 5 seperate
+       hypothetical receiver practice sessions",
+       x= "Minutes of Practice Time",
+       y= "CM: Catches/Min, CP: % Catches")+
+  theme_light()+
+  facet_wrap(~type, scales = "free_y")
+
+```
+
+Based on the data entered, more minutes of practice generally result in lower catch rates, but higher catch percentages. The first data point however, bucks this trend. Running this with a larger sample size (greater than 5), would yeild more conclusive results. 
